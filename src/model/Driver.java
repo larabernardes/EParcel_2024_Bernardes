@@ -11,7 +11,6 @@ public class Driver extends Person {
 	private static long counter = 0;
 	
 	
-	
 	// 2. Getters and setters
 
 	public long getdID() {

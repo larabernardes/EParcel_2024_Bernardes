@@ -1,5 +1,226 @@
 package service;
 
+import model.Driver;
+import model.AbstractCustomer;
+import model.Address;
+import model.City;
+import model.CustomerAsPerson;
+import model.CustomerAsCompany;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainService {
-	
+    
+    public static ArrayList<Driver> allDrivers = new ArrayList<>();
+    public static ArrayList<AbstractCustomer> allAbstractCustomer = new ArrayList<>();
+    
+    
+    public static void main(String[] args) {
+        
+        Driver driver1 = new Driver("Lara", "Bernardes", "123456-12345", "ABCDE", 2);
+        Driver driver2 = new Driver("Annija", "Aumale", "111111-11111", "GH", 2.5f);
+        Driver driver3 = new Driver("Viktors", "Kokins", "000000-00000", "A", 1);
+        
+        Address individualCostumer1Address = new Address(City.Ventspils, "Saules iela", 55);
+        Address individualCostumer2Address = new Address(City.Jelgava, "Tukuma iela", 33);
+        Address individualCostumer3Address = new Address(City.Daugavpils, "Baznica iela", 101);
+        
+        Address businessCostumer1Address = new Address(City.Jelgava, "Liela iela", 23);
+        Address businessCostumer2Address = new Address(City.Liepaja, "Juras iela", 155);
+        Address businessCostumer3Address = new Address(City.Riga, "Kandavas iela", 666);
+        
+        CustomerAsPerson individualCostumer1 = new CustomerAsPerson("Vairis", "Caune", "222222-22222",
+        		individualCostumer1Address, "56764456");
+        CustomerAsPerson individualCostumer2 = new CustomerAsPerson("Estere", "Vitola", "654321-54321",
+        		individualCostumer2Address, "65678765");
+        CustomerAsPerson individualCostumer3 = new CustomerAsPerson("Arturs", "Orbidans", "456789-11111",
+        		individualCostumer3Address, "76567654");
+        
+       CustomerAsCompany businessCostumer1 = new CustomerAsCompany(businessCostumer1Address, "65478765",
+        		"Company1", "11111111");
+        CustomerAsCompany businessCostumer2 = new CustomerAsCompany(businessCostumer2Address, "45678765",
+        		"Company2", "22222222");
+        CustomerAsCompany businessCostumer3 = new CustomerAsCompany(businessCostumer3Address, "653733738",
+        		"Company3", "33333333"); 
+        
+        allDrivers.addAll(Arrays.asList(driver1, driver2, driver3));
+        allAbstractCustomer.addAll(Arrays.asList(individualCostumer1, individualCostumer2,
+        		individualCostumer3, businessCostumer1, businessCostumer2, businessCostumer3));
+        
+        /* for(Driver tempD: allDrivers) {
+            System.out.println(tempD.getClass().getName() + "-> " + tempD);
+            
+        }
+        
+        System.out.println("-------------------------------");
+        
+        for(AbstractCustomer tempA: allAbstractCustomer) {
+            System.out.println(tempA.getClass().getName() + "-> " + tempA);
+            
+        } */
+        
+        System.out.println("-------------------------------");
+        
+        try
+        {
+        	
+        	System.out.println(retrieveDriverByPersonCode("123456-12345"));
+        	updateDriverLicenseNoByPersonCode("123456-12345", "ERF");
+        	updateDriverExperienceinYearsByPersonCode("123456-12345", 33);
+        	removeDriverByPersonCode("000000-00000");
+        	System.out.println("-------------------------------");
+        	
+        	System.out.println("Business costumers: ");
+        	ArrayList<CustomerAsCompany> businessCostumers = retrieveAllCostumersAsCompany();
+        	for(CustomerAsCompany tempC: businessCostumers) {
+                System.out.println(tempC);
+                
+            } 
+        	
+        	System.out.println("-------------------------------");
+        	
+        	System.out.println("Individual costumers: ");
+        	ArrayList<CustomerAsPerson> allIndividualCustomers = retrieveAllCostumersasPerson();
+        	for(CustomerAsPerson tempC: allIndividualCustomers) {
+                System.out.println(tempC);
+                
+                
+   
+                
+            } 
+        	
+        } catch (Exception e)
+        {
+            // e.printStackTrace();
+            System.out.println(e);
+        }
+ 
+            
+    }
+    
+    
+    public static Driver retrieveDriverByPersonCode(String inputPersonCode) throws Exception {
+        if(inputPersonCode == null) throw new Exception("Problems with input");    
+        
+        for(Driver tempD: allDrivers) {
+            if(tempD.getPersonCode().equals(inputPersonCode)){
+                return tempD;
+            }
+        }
+        
+        throw new Exception("Driver is not found");
+        
+    }
+    
+    
+    public static void updateDriverLicenseNoByPersonCode(String inputPersonCode, String licenseNo) throws Exception
+    {
+    	if(inputPersonCode == null || licenseNo == null) throw new Exception("Problems with input");
+    	
+    	for(Driver tempD: allDrivers) {
+            if(tempD.getPersonCode().equals(inputPersonCode)){
+                tempD.setLicenseNo(licenseNo);
+                return;
+            }
+        }
+    	
+    	throw new Exception("Driver is not found");
+    }
+    
+    
+    public static void updateDriverExperienceinYearsByPersonCode(String inputPersonCode, float inputExperienceInYears) throws Exception
+    {
+    	if(inputPersonCode == null || inputExperienceInYears < 0.0f || inputExperienceInYears > 60.0f ) throw new Exception("Problems with input");
+    	
+    	for(Driver tempD: allDrivers) {
+            if(tempD.getPersonCode().equals(inputPersonCode)){
+                tempD.setExperienceInYears(inputExperienceInYears);
+                return;
+            }
+        }
+    	
+    	throw new Exception("Driver is not found");
+    }
+    
+    
+    public static void removeDriverByPersonCode(String inputPersonCode) throws Exception
+    {
+    	if(inputPersonCode == null) throw new Exception("Problems with input");
+    	
+    	for(Driver tempD: allDrivers) {
+            if(tempD.getPersonCode().equals(inputPersonCode)){
+            	allDrivers.remove(tempD);
+				return;
+            }
+        }
+    	
+    	throw new Exception("Driver is not found");
+    }
+    
+    
+    public static ArrayList<CustomerAsCompany> retrieveAllCostumersAsCompany() {
+    	ArrayList<CustomerAsCompany> businessCustomers = new ArrayList<>();
+    	
+    	for(AbstractCustomer customer : allAbstractCustomer) {
+            if(customer instanceof CustomerAsCompany) {
+            	businessCustomers.add((CustomerAsCompany) customer);
+            }
+        }
+    	
+    	return businessCustomers;
+	}
+    
+    public static ArrayList<CustomerAsPerson> retrieveAllCostumersasPerson() {
+        ArrayList<CustomerAsPerson> individualCustomers = new ArrayList<>();
+        
+        for(AbstractCustomer customer : allAbstractCustomer) {
+            if(customer instanceof CustomerAsPerson) {
+                individualCustomers.add((CustomerAsPerson)customer);
+            }
+        }
+        
+        return individualCustomers;
+    }
+    
+    
+    public static void createNewCustomerAsPerson(String name, String surname, String personCode,
+            Address address, String phone) throws Exception {
+        
+        if (name == null || surname == null || personCode == null || address == null || phone == null)
+            throw new Exception("Problems with input");
+
+        for (AbstractCustomer customer : allAbstractCustomer) {
+            if (customer instanceof CustomerAsPerson && ((CustomerAsPerson) customer).getPerson().getPersonCode().equals(personCode)) {
+                throw new Exception("Customer already exists!");
+            }
+        }
+        
+        CustomerAsPerson newCustomer = new CustomerAsPerson(name, surname, personCode, address, phone);
+        allAbstractCustomer.add(newCustomer);
+    }
+        
+    
+    public static void createNewCustomerAsCompany(Address address, String phone, String companyName, String companyRegistrationNumber) throws Exception
+    {
+ 	   if (address == null || phone == null || companyName == null || companyRegistrationNumber == null) {
+ 		   throw new Exception("Problems with input");
+ 	   }
+
+        for (AbstractCustomer customer : allAbstractCustomer) {
+            if (customer instanceof CustomerAsCompany && ((CustomerAsCompany) customer).getCompanyRegNo().equals(companyRegistrationNumber)){
+         	   throw new Exception("Company already exists!");
+             }
+        
+    		}
+
+             
+        CustomerAsCompany newCustomer = new CustomerAsCompany(address, phone, companyName, companyRegistrationNumber);
+        allAbstractCustomer.add(newCustomer);
+     }
+    
+
+    
+    
+    
 }

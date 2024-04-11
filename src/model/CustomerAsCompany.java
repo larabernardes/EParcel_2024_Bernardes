@@ -35,7 +35,7 @@ public class CustomerAsCompany extends AbstractCustomer {
 	@Override 
 	public void setCustomerCode() {
 		
-		this.customerCode = Long.toString(getcID()) + "_" + companyRegNo;
+		this.customerCode = Long.toString(getcID()) + "_company_" + companyRegNo;
 	}
 	
 	
@@ -60,14 +60,13 @@ public class CustomerAsCompany extends AbstractCustomer {
 	 
 	 @Override
 	 public String toString() {
-		 return "CustomerAsCompany{" +
-				 "cID=" + getcID() +
-				 ", address=" + getAddress() +
-	             ", phoneNo='" + getPhoneNo() + '\'' +
-	             ", customerCode='" + getCustomerCode() + '\'' +
-	             ", title='" + title + '\'' +
-	             ", companyRegNo='" + companyRegNo + '\'' +
-	             '}';
+		 return "Business costumer: " + "\n" +
+				 "-> cID: " + getcID() + "\n" +
+				 "	- Address: " + getAddress() + "\n" +
+	             "	- Phone number: " + getPhoneNo() + '\'' + "\n" +
+	             "	- Customer code: " + getCustomerCode() + '\'' + "\n" +
+	             " 	- Title: " + title + '\'' + "\n" +
+	             "	- Company registration number: '" + companyRegNo + '\'' + "\n";
 	    }
 	 
 	 

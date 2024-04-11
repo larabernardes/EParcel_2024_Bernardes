@@ -40,7 +40,7 @@ public abstract class AbstractCustomer {
     }
 
     public void setPhoneNo(String phoneNo) {
-        if (phoneNo != null && phoneNo.matches("[0-9]{8, 15}"))
+        if (phoneNo != null && phoneNo.matches("[0-9]{8,15}"))
             this.phoneNo = phoneNo;
         else
             this.phoneNo = "Undefined";

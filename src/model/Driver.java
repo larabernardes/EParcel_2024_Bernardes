@@ -30,7 +30,7 @@ public class Driver extends Person {
 	
 
 	public void setLicenseNo(String licenseNo) {
-		if(licenseNo != null  && licenseNo.matches("[A-Z0-9]{10}"))
+		if(licenseNo != null  && licenseNo.matches("[A-Z0-9 ]{1,10}"))
 			this.licenseNo = licenseNo;
 		else
 			this.licenseNo = "Undefinied";

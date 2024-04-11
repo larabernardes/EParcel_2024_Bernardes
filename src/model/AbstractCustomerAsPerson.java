@@ -37,14 +37,12 @@ public abstract class AbstractCustomerAsPerson extends AbstractCustomer {
 	// 4. Constructors
 	
 	public String toString() {
-	    return "AbstractCustomerAsPerson{" +
-	            "cID=" + getcID() +
-	            ", address=" + getAddress() +
-	            ", phoneNo='" + getPhoneNo() + '\'' +
-	            ", parcels=" + getParcels() +
-	            ", customerCode='" + getCustomerCode() + '\'' +
-	            ", person=" + person +
-	            '}';
+		return "Individual costumer: " + "\n" +
+                "-> cID: " + getcID() + "\n" +
+                "	- Address: " + getAddress() + "\n" +
+                "	- Phone number: " + getPhoneNo() + '\'' + "\n" +
+                "	- Customer Code: " + getCustomerCode() + '\'' + "\n" +
+                "	- Person: " + person + "\n";
 	}
 	
 	

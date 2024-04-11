@@ -43,7 +43,7 @@ public class Driver extends Person {
 
 	
 	public void setExperienceInYears(float experienceInYears) {
-		if(experienceInYears > 0 && experienceInYears < 60)
+		if(experienceInYears > 0.0f && experienceInYears < 60.0f)
 			this.experienceInYears = experienceInYears;
 		else
 			this.experienceInYears = 0;
@@ -54,6 +54,7 @@ public class Driver extends Person {
 	
 	public Driver() {
 		super();
+		setdID();
 		setLicenseNo("00000000");
 		setExperienceInYears(0);
 	}
@@ -61,6 +62,7 @@ public class Driver extends Person {
 	
 	public Driver(String name, String surname, String personCode, String licenseNo, float experienceInYears) {
 		super(name, surname, personCode);
+		setdID();
 		setLicenseNo(licenseNo);
 		setExperienceInYears(experienceInYears);
 	}

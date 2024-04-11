@@ -1,22 +1,19 @@
 package model;
 
-public class CustomerAsPerson extends AbstractCustomerAsPerson {
+public class CustomerAsPerson extends AbstractCustomerAsPerson{
 
 	// 3. Constructors
 	public CustomerAsPerson() {
         super(); 
     }
 	
-	
 	public CustomerAsPerson(String name, String surname, String personCode,
 			Address address, String phone)
 	{
-        super(name, surname, personCode);
-        
+		super(name, surname, personCode, address, phone);
      
     }
 
-	
 	
 	
 	// 4. toString
@@ -27,20 +24,18 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson {
 	                "cID=" + getcID() +
 	                ", address=" + getAddress() +
 	                ", phoneNo='" + getPhoneNo() + '\'' +
-	                ", parcels=" + getParcels() +
 	                ", customerCode='" + getCustomerCode() + '\'' +
 	                ", person=" + person +
 	                '}';
 	    }
 	        
 	
-	// 5. Other functionss 
+	// 5. Other functions 
 	@Override
 	public void setCustomerCode() {
-		this.customerCode = Long.toString(getcID()) + "_" + + person.getPersonCode();
+		this.customerCode = Long.toString(getcID()) + "_" + getPerson().getPersonCode();
 		
 	}
-	
 	
 	
 }

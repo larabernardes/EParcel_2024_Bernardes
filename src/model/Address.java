@@ -47,7 +47,7 @@ public class Address {
 	// 3. Constructors
 	
 	public Address() {
-		setCity(null);
+		setCity(null); //What should be the default city?
 		setHouseNo(0);
 		setStreetOrHouseTitle("Undefined");
 		
@@ -65,7 +65,7 @@ public class Address {
 	
 	public String toString()
 	{
-		return "City: " + city  + "; Street/House Title: " + streetOrHouseTitle + "; Number: " +  houseNo;
+		return "City: " + city  + "; Street/House title: " + streetOrHouseTitle + "; Number: " +  houseNo;
 	}
 	
 	

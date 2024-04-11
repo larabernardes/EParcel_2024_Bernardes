@@ -11,7 +11,7 @@ public abstract class AbstractCustomer {
     private ArrayList<Parcel> parcels = new ArrayList<Parcel>();
     protected String customerCode;
 
-    private static int counter = 0;
+    private static long counter = 0;
 
     // 2. Getters and setters
 
@@ -19,9 +19,9 @@ public abstract class AbstractCustomer {
         return cID;
     }
 
- 
     public void setcID() {
-        this.cID = counter++;
+        this.cID = counter;
+        counter++;
     }
 
     public Address getAddress() {
@@ -40,7 +40,7 @@ public abstract class AbstractCustomer {
     }
 
     public void setPhoneNo(String phoneNo) {
-        if (phoneNo != null && phoneNo.matches("[0-9]{15}"))
+        if (phoneNo != null && phoneNo.matches("[0-9]{8, 15}"))
             this.phoneNo = phoneNo;
         else
             this.phoneNo = "Undefined";
@@ -53,13 +53,13 @@ public abstract class AbstractCustomer {
     public void setParcels(ArrayList<Parcel> parcels) {
         if (parcels != null)
             this.parcels = parcels;
+        	
     }
 
     public String getCustomerCode() {
         return customerCode;
     }
 
-  
     public abstract void setCustomerCode();
 
     
@@ -69,15 +69,14 @@ public abstract class AbstractCustomer {
     	setcID();
     	setAddress(new Address());
     	setPhoneNo("Undefined");
-    	setParcels(new ArrayList<Parcel>());
+    	// setParcels(new ArrayList<Parcel>()); Should I call setParcells here?
     }
     
     public AbstractCustomer(Address address, String phoneNo) {
     	setcID();
     	setAddress(address);
-    	setPhoneNo(phoneNo);
-    	setParcels(new ArrayList<Parcel>());
-    }
+    	setPhoneNo(phoneNo); // why is set parcels not called here?
+    } 
     
     
     // 4. toString

@@ -15,7 +15,7 @@ public class CustomerAsCompany extends AbstractCustomer {
 	}
 
 	public void setTitle(String title) {
-		if(title != null  && title.matches("[a-zA-Z 0-9]{3,20}")) 
+		if(title != null  && title.matches("[a-zA-Z0-9 ]{3,20}")) 
 			this.title = title;
 		else
 			this.title = "Undefined";
@@ -32,10 +32,10 @@ public class CustomerAsCompany extends AbstractCustomer {
 			this.companyRegNo = "Undefinied";
 	}
 	
-	@Override
+	@Override 
 	public void setCustomerCode() {
 		
-		this.customerCode = Long.toString(getcID()) + "_" + title;
+		this.customerCode = Long.toString(getcID()) + "_" + companyRegNo;
 	}
 	
 	
@@ -45,13 +45,14 @@ public class CustomerAsCompany extends AbstractCustomer {
 	        super(); 
 	        setTitle("Title");
 		    setCompanyRegNo("00000000");
-	        
+	        setCustomerCode();
 	 }
 	 
 	 public CustomerAsCompany(Address address, String phoneNo, String title, String companyRegNo) {
 		 super(address, phoneNo); 
 		 setTitle(title);
 	     setCompanyRegNo(companyRegNo);
+	     setCustomerCode();
 	  }
 	
 	 
@@ -63,7 +64,6 @@ public class CustomerAsCompany extends AbstractCustomer {
 				 "cID=" + getcID() +
 				 ", address=" + getAddress() +
 	             ", phoneNo='" + getPhoneNo() + '\'' +
-	             ", parcels=" + getParcels() +
 	             ", customerCode='" + getCustomerCode() + '\'' +
 	             ", title='" + title + '\'' +
 	             ", companyRegNo='" + companyRegNo + '\'' +

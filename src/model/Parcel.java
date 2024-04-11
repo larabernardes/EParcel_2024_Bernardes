@@ -52,7 +52,8 @@ public class Parcel {
 		if (plannedDelivery.toLocalDate().isAfter(LocalDate.now())) {
             this.plannedDelivery = plannedDelivery;
 		} 
-		else {
+		else
+		{
 	        this.plannedDelivery = LocalDateTime.now().plusDays(5);
 	    }
 	}
@@ -92,8 +93,9 @@ public class Parcel {
 	
 	public Parcel() {
 		setIsFragile(false);
+		setSize(ParcelSize.M);
 		setOrderCreated();
-		setPlannedDelivery(plannedDelivery);
+		setPlannedDelivery(null);
 		setPrice();
 		setDriver(new Driver());
 		

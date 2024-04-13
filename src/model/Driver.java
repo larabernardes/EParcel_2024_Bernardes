@@ -73,7 +73,8 @@ public class Driver extends Person {
 	@Override
 	public String toString()
 	{
-		return dID + ": " + super.toString() + " (" + "Experience in years: " + experienceInYears + ")";
+		return dID + ": " + super.toString() + " (" + "Experience in years: " +
+	experienceInYears + "; License number: " + licenseNo + ")";
 	}
 	
 	

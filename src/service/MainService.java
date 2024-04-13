@@ -9,6 +9,7 @@ import model.City;
 import model.CustomerAsPerson;
 import model.CustomerAsCompany;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,9 +119,31 @@ public class MainService {
                 System.out.println(tempP);
             }
             
+            
+        	
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.L, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.S, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.X, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.Undefined, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.Undefined, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.XL, true, driver1, businessCostumer1.getCustomerCode());
+        	
+        	int[] statistics = retrieveStatisticsOfCustomerParcelSize(businessCostumer1.getCustomerCode());
+        	System.out.println("Statistics of parcel sizes for customer " + businessCostumer1.getCustomerCode() + ":");
+        	System.out.print("[");
+        	for (int i = 0; i < statistics.length; i++) {
+        	    System.out.print(statistics[i]);
+        	    if (i < statistics.length - 1) {
+        	        System.out.print(", ");
+        	    }
+        	}
+        	System.out.println("]");
+
             */
-            
-            
+        	
+        	
+           
         } catch (Exception e)
         {
             // e.printStackTrace();
@@ -371,10 +394,113 @@ public class MainService {
     
     
     
+    public static float calculatePriceOfAllCustomerParcelsByCustomerCode(String costumerCode) throws Exception {
+    	
+    	if (costumerCode == null) throw new Exception("Problems with input");
+    	
+    	float totalPrice = 0;
+    	boolean customerFound = false;
+    	
+    	for (AbstractCustomer customer : allAbstractCustomer) {
+    		if (customer.getCustomerCode().equals(costumerCode)) {
+    			for(Parcel tempParcel: customer.getParcels()) {
+    				totalPrice += tempParcel.getPrice();
+    				customerFound = true;
+    			}
+    		}
+    	}
+    	
+    	if (!customerFound) {
+	        throw new Exception("Customer not found");
+	    }
+    	
+    	return totalPrice;
+    	
+    }
     
+    
+    public static int[] retrieveStatisticsOfCustomerParcelSize(String customerCode) throws Exception {
+        if (customerCode == null) {
+        	throw new Exception("Problems with input");
+        }
+
+        int[] statisticsOfParcel = new int[ParcelSize.values().length];
+        boolean customerFound = false;
+
+        for (AbstractCustomer customer : allAbstractCustomer) {
+            if (customer.getCustomerCode().equals(customerCode)) {
+                customerFound = true; 
+                for (Parcel parcel : customer.getParcels()) {
+                    ParcelSize size = parcel.getSize();
+
+                    switch (size) {
+                        case X:
+                            statisticsOfParcel[0]++;
+                            break;
+                        case S:
+                            statisticsOfParcel[1]++;
+                            break;
+                        case M:
+                            statisticsOfParcel[2]++;
+                            break;
+                        case L:
+                            statisticsOfParcel[3]++;
+                            break;
+                        case XL:
+                            statisticsOfParcel[4]++;
+                            break;
+                        case Undefined:
+                            statisticsOfParcel[5]++;
+                            break;
+                    }
+                }
+            }
+        }
+
+        if (!customerFound) {
+            throw new Exception("Customer not found");
+        }
+
+        return statisticsOfParcel;
+    }
+    
+    
+    public static int calculateHowManyParcelsTodayDeliveredToSpecificCity(City city) throws Exception {
+        if (city == null) {
+        	throw new Exception("Problems with input");
+        }
+        
+        int parcelsDeliveredToday = 0;
+        boolean cityFound = false;
+        
+        LocalDate today = LocalDate.now(); 
+        
+        for (AbstractCustomer customer : allAbstractCustomer) {
+            if (customer.getAddress().getCity().equals(city)) {
+                cityFound = true;
+                for (Parcel parcel : customer.getParcels()) {
+                    if (parcel.getPlannedDelivery().toLocalDate().isEqual(today)) {
+                        parcelsDeliveredToday++;
+                    }
+                }
+            }
+        }
+        
+        if (!cityFound) {
+            throw new Exception("No parcels found for city: " + city);
+        }
+        
+        return parcelsDeliveredToday;
+    }
 
     
     
+
+
+    
+
+    
+ 
     
 
     

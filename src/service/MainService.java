@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MainService {
     
@@ -22,8 +23,8 @@ public class MainService {
     
     public static void main(String[] args) {
         
-        Driver driver1 = new Driver("Lara", "Bernardes", "123456-12345", "ABCDE", 2);
-        Driver driver2 = new Driver("Annija", "Aumale", "111111-11111", "GH", 2.5f);
+        Driver driver1 = new Driver("Lara", "Bernardes", "123456-12345", "ABCDE", 3);
+        Driver driver2 = new Driver("Annija", "Aumale", "111111-11111", "GH", 4);
         Driver driver3 = new Driver("Viktors", "Kokins", "000000-00000", "A", 1);
         
         Address individualCostumer1Address = new Address(City.Ventspils, "Saules iela", 55);
@@ -73,7 +74,7 @@ public class MainService {
         
         try
         {
-    /*
+   /*
         	System.out.println(retrieveDriverByPersonCode("123456-12345"));
         	
         	updateDriverLicenseNoByPersonCode("123456-12345", "ERF");
@@ -139,9 +140,10 @@ public class MainService {
         	    }
         	}
         	System.out.println("]");
-
-            */
         	
+        	*/
+        	
+        
         	
            
         } catch (Exception e)
@@ -495,10 +497,20 @@ public class MainService {
 
     
     
+    public static void sortDriversByExperience() { // bubble sort
+        int numberOfDrivers = allDrivers.size(); 
 
-
+        for (int i = 0; i < numberOfDrivers - 1; i++) {
+            for (int j = 0; j < numberOfDrivers - i - 1; j++) {
+                if (allDrivers.get(j).getExperienceInYears() > allDrivers.get(j + 1).getExperienceInYears()) {
+                    Driver temp = allDrivers.get(j);
+                    allDrivers.set(j, allDrivers.get(j + 1));
+                    allDrivers.set(j + 1, temp);
+                }
+            }
+        }
+    }
     
-
     
  
     

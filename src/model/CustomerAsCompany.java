@@ -62,9 +62,9 @@ public class CustomerAsCompany extends AbstractCustomer {
 	 public String toString() {
 		 return "Business costumer: " + "\n" +
 				 super.toString() +
-	             "	- Customer code: " + getCustomerCode() + '\'' + "\n" +
+	             "	- Customer code: " + getCustomerCode() + "\n" +
 	             " 	- Title: " + title + "\n" +
-	             "	- Company registration number: '" + companyRegNo + "\n";
+	             "	- Company registration number: " + companyRegNo + "\n";
 	    }
 	 
 	 

@@ -32,7 +32,7 @@ public class MainService {
         
         Address businessCostumer1Address = new Address(City.Jelgava, "Liela iela", 23);
         Address businessCostumer2Address = new Address(City.Liepaja, "Juras iela", 155);
-        Address businessCostumer3Address = new Address(City.Riga, "Kandavas iela", 666);
+        Address businessCostumer3Address = new Address(City.Daugavpils, "Kandavas iela", 666);
         Address testAddressForIndividualCostumer = new Address(City.Riga, "Plata iela", 696);
         
         CustomerAsPerson individualCostumer1 = new CustomerAsPerson("Vairis", "Caune", "222222-22222",
@@ -63,14 +63,16 @@ public class MainService {
         for(AbstractCustomer tempA: allAbstractCustomer) {
             System.out.println(tempA.getClass().getName() + "-> " + tempA);
             
-        } */
+        }
         
         System.out.println("-------------------------------");
         
+        */
+        
+        
         try
         {
-        	/*
-    
+    /*
         	System.out.println(retrieveDriverByPersonCode("123456-12345"));
         	
         	updateDriverLicenseNoByPersonCode("123456-12345", "ERF");
@@ -78,7 +80,7 @@ public class MainService {
         	removeDriverByPersonCode("000000-00000");
         	createNewCustomerAsPerson("Andris", "Daksa", "112213-12345", testAddressForIndividualCostumer, "123456789");
         	createNewCustomerAsCompany(testAddressForBusinessCostumer, "88787878", "Testing function", "01010101");
-        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.L, true, driver3, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.L, true, driver1, individualCostumer1.getCustomerCode());
         	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver1, individualCostumer1.getCustomerCode());
         	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver1, businessCostumer1.getCustomerCode());
         	
@@ -98,11 +100,27 @@ public class MainService {
         	for(CustomerAsPerson tempC: allIndividualCustomers) {
                 System.out.println(tempC);
                 
+            System.out.println("-------------------------------");
                 
-   
-                
-            } */
+            } 
         	
+        	ArrayList<Parcel> individualCostumer1Parcels =
+            		retrieveAllParcelsByCustomerCode(individualCostumer1.getCustomerCode());
+            
+            for(Parcel tempP: individualCostumer1Parcels) {
+                System.out.println(tempP);
+            }
+            
+            System.out.println("-------------------------------");
+            
+            ArrayList<Parcel> daugavpilsParcels = retrieveallParcelsByParcelSize(ParcelSize.L);
+            for(Parcel tempP: daugavpilsParcels) {
+                System.out.println(tempP);
+            }
+            
+            */
+            
+            
         } catch (Exception e)
         {
             // e.printStackTrace();
@@ -184,6 +202,7 @@ public class MainService {
     	return businessCustomers;
 	}
     
+    
     public static ArrayList<CustomerAsPerson> retrieveAllCostumersasPerson() {
         ArrayList<CustomerAsPerson> individualCustomers = new ArrayList<>();
         
@@ -239,24 +258,121 @@ public class MainService {
     	if (size == null || driver == null || costumerCode == null)
             throw new Exception("Problems with input");
     	
+    	boolean customerFound = false;
+    	
     	for (AbstractCustomer customer : allAbstractCustomer) {
-    		
-    		if(customer instanceof CustomerAsCompany &&
-    				((CustomerAsCompany) customer).getCustomerCode().equals(costumerCode)) {
-    			
-    			Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
+            if (customer.getCustomerCode().equals(costumerCode)) {
+            	Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
     			customer.addNewParcel(newParcel);
-    			
-    		} else if (customer instanceof CustomerAsPerson &&
-    				((CustomerAsPerson) customer).getCustomerCode().equals(costumerCode)) {
-    			
-    			Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
-    			customer.addNewParcel(newParcel);
-    		}
-    	}
+    			customerFound = true;
+            }
+        }
+    	
+    	if (!customerFound) {
+	        throw new Exception("Customer not found");
+	    }
     	
     }
     
+   
+   
+    public static ArrayList<Parcel> retrieveAllParcelsByCustomerCode(String customerCode) throws Exception {
+        if (customerCode == null) throw new Exception("Problems with input");
+        
+        
+        ArrayList<Parcel> allParcels = new ArrayList<>();
+        boolean customerFound = false;
+        
+        for (AbstractCustomer customer : allAbstractCustomer) {
+            if (customer.getCustomerCode().equals(customerCode)) {
+                allParcels.addAll(customer.getParcels());
+                customerFound = true;
+            }
+        }
+        
+        if (!customerFound) {
+	        throw new Exception("No parcels found.");
+	    }
+	    
+        
+        return allParcels;
+    }
+    
+    
+    public static ArrayList<Parcel> retrieveAllParcelsByDriverPersonCode(String personCode) throws Exception{
+    	 if (personCode == null) throw new Exception("Problems with input");
+    	 
+    	 ArrayList<Parcel> allParcels = new ArrayList<>();
+    	 boolean driverFound = false;
+    	 
+    	 for (AbstractCustomer customer : allAbstractCustomer) {
+    	        for (Parcel parcel : customer.getParcels()) {
+    	            if (parcel.getDriver().getPersonCode().equals(personCode)) {
+    	                allParcels.add(parcel);
+    	                driverFound = true;
+    	            }
+    	        }
+    	    }
+    	 
+    	 if (!driverFound) {
+    	        throw new Exception("No parcels found.");
+    	    }
+    	    
+    	 return allParcels;
+    	
+    }
+    
+    
+    public static ArrayList<Parcel> retrieveallParcelsByCity(City city) throws Exception{
+    	if (city == null) throw new Exception("Problems with input");
+   	 
+   	 	ArrayList<Parcel> allParcels = new ArrayList<>();
+   	 	boolean cityFound = false;
+   	 	
+	   	 for (AbstractCustomer customer : allAbstractCustomer) {
+		        if(customer.getAddress().getCity().equals(city)) {
+		                allParcels.addAll(customer.getParcels());
+		                cityFound = true;
+		         }
+		 }
+    
+	    if (!cityFound) {
+	        throw new Exception("No parcels found.");
+	    }
+	    
+	    return allParcels;
+	    	
+	    	
+	    }
+    
+    public static ArrayList<Parcel> retrieveallParcelsByParcelSize(ParcelSize parcelSize) throws Exception{
+    	if (parcelSize == null) throw new Exception("Problems with input");
+   	 
+   	 	ArrayList<Parcel> allParcels = new ArrayList<>();
+   	 	boolean sizeFound = false;
+   	 	
+	   	 for (AbstractCustomer customer : allAbstractCustomer) {
+		        for (Parcel parcel : customer.getParcels()) {
+		            if (parcel.getSize().equals(parcelSize)) {
+		                allParcels.add(parcel);
+		                sizeFound = true;
+		            }
+		        }
+		    }
+		 
+		 if (!sizeFound) {
+		        throw new Exception("No parcels found.");
+		    }
+		    
+		 return allParcels;
+    	
+    	
+    }
+    
+    
+    
+    
+
     
     
     

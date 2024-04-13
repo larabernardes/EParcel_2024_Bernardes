@@ -69,23 +69,25 @@ public abstract class AbstractCustomer {
     	setcID();
     	setAddress(new Address());
     	setPhoneNo("Undefined");
-    	// setParcels(new ArrayList<Parcel>()); Should I call setParcells here?
     }
     
     public AbstractCustomer(Address address, String phoneNo) {
     	setcID();
     	setAddress(address);
-    	setPhoneNo(phoneNo); // why is set parcels not called here?
+    	setPhoneNo(phoneNo); 
     } 
     
     
     // 4. toString
 
     public String toString() {
-        return  "cID: " + cID + "; " +
-                "Address: " + address + "; Phone number: " +
-                phoneNo + " Parcels: " + parcels + ";";
+        return  "-> cID: " + getcID() + "\n" +
+				 "	- Address: " + getAddress() + "\n" +
+	             "	- Phone number: " + getPhoneNo() + "\n" + 
+	             "	- Parcels: " + getParcels() + "\n"  + "\n";
     }
+
+    
  	
     
     // 5. Other functions 

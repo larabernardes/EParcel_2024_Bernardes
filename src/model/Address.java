@@ -47,7 +47,7 @@ public class Address {
 	// 3. Constructors
 	
 	public Address() {
-		setCity(null); //What should be the default city?
+		setCity(City.Undefined); 
 		setHouseNo(0);
 		setStreetOrHouseTitle("Undefined");
 		

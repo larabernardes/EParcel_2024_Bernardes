@@ -23,11 +23,7 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson{
 	 @Override
 	 	public String toString() {
 	        return "Individual costumer: " + "\n" +
-	                "-> cID: " + getcID() + "\n" +
-	                "	- Address: " + getAddress() + "\n" +
-	                "	- Phone number: " + getPhoneNo() + '\'' + "\n" +
-	                "	- Customer code: " + getCustomerCode() + '\'' + "\n" +
-	                "	- Person: " + person + "\n";
+	                super.toString();
 	    }
 	        
 	

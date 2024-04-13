@@ -33,7 +33,7 @@ public class Parcel {
 		if(size != null)
 			this.size = size;
 		else
-			this.size = ParcelSize.M; // ask professor if i should leave it as null!
+			this.size = ParcelSize.Undefined; 
 	}
 	
 	public LocalDateTime getOrderCreated() {
@@ -93,9 +93,9 @@ public class Parcel {
 	
 	public Parcel() {
 		setIsFragile(false);
-		setSize(ParcelSize.M);
+		setSize(ParcelSize.Undefined);
 		setOrderCreated();
-		setPlannedDelivery(null);
+		setPlannedDelivery(LocalDateTime.now());
 		setPrice();
 		setDriver(new Driver());
 		
@@ -117,13 +117,14 @@ public class Parcel {
 	// 4.toString
 	
 	public String toString() {
-        return "Parcel details: \n" +
-               "isFragile: " + isFragile + "\n" +
-               "Size: " + size + "\n" +
-               "Order created: " + orderCreated + "\n" +
-               "Planned delivery: " + plannedDelivery + "\n" +
-               "Price: $" + String.format("%.2f", price) + "\n" +
-               "Driver: " + (driver != null ? driver.getName() : "Not assigned");
+        return "\n" + "		-> Parcel details: \n" +
+               "			- Is fragile: " + isFragile + "\n" +
+               "			- Size: " + size + "\n" +
+               "			- Order created: " + orderCreated + "\n" +
+               "			- Planned delivery: " + plannedDelivery + "\n" +
+               "			- Price: $" + String.format("%.2f", price) + "\n" +
+               "			- Driver: " + (driver != null ? driver.getName() + " " +
+driver.getSurname() : "Not assigned") + "\n";
     }
 	
 	

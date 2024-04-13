@@ -1,12 +1,15 @@
 package service;
 
 import model.Driver;
+import model.Parcel;
+import model.ParcelSize;
 import model.AbstractCustomer;
 import model.Address;
 import model.City;
 import model.CustomerAsPerson;
 import model.CustomerAsCompany;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,10 +28,12 @@ public class MainService {
         Address individualCostumer1Address = new Address(City.Ventspils, "Saules iela", 55);
         Address individualCostumer2Address = new Address(City.Jelgava, "Tukuma iela", 33);
         Address individualCostumer3Address = new Address(City.Daugavpils, "Baznica iela", 101);
+        Address testAddressForBusinessCostumer = new Address(City.Liepaja, "Maza iela", 788);
         
         Address businessCostumer1Address = new Address(City.Jelgava, "Liela iela", 23);
         Address businessCostumer2Address = new Address(City.Liepaja, "Juras iela", 155);
         Address businessCostumer3Address = new Address(City.Riga, "Kandavas iela", 666);
+        Address testAddressForIndividualCostumer = new Address(City.Riga, "Plata iela", 696);
         
         CustomerAsPerson individualCostumer1 = new CustomerAsPerson("Vairis", "Caune", "222222-22222",
         		individualCostumer1Address, "56764456");
@@ -64,11 +69,19 @@ public class MainService {
         
         try
         {
-        	
+        	/*
+    
         	System.out.println(retrieveDriverByPersonCode("123456-12345"));
+        	
         	updateDriverLicenseNoByPersonCode("123456-12345", "ERF");
         	updateDriverExperienceinYearsByPersonCode("123456-12345", 33);
         	removeDriverByPersonCode("000000-00000");
+        	createNewCustomerAsPerson("Andris", "Daksa", "112213-12345", testAddressForIndividualCostumer, "123456789");
+        	createNewCustomerAsCompany(testAddressForBusinessCostumer, "88787878", "Testing function", "01010101");
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.L, true, driver3, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver1, individualCostumer1.getCustomerCode());
+        	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver1, businessCostumer1.getCustomerCode());
+        	
         	System.out.println("-------------------------------");
         	
         	System.out.println("Business costumers: ");
@@ -88,7 +101,7 @@ public class MainService {
                 
    
                 
-            } 
+            } */
         	
         } catch (Exception e)
         {
@@ -218,6 +231,34 @@ public class MainService {
         CustomerAsCompany newCustomer = new CustomerAsCompany(address, phone, companyName, companyRegistrationNumber);
         allAbstractCustomer.add(newCustomer);
      }
+    
+    
+    public static void createNewParcelForCustomer(LocalDateTime plannedDelivery, ParcelSize size,
+    		boolean isFragile, Driver driver, String costumerCode) throws Exception {
+    	
+    	if (size == null || driver == null || costumerCode == null)
+            throw new Exception("Problems with input");
+    	
+    	for (AbstractCustomer customer : allAbstractCustomer) {
+    		
+    		if(customer instanceof CustomerAsCompany &&
+    				((CustomerAsCompany) customer).getCustomerCode().equals(costumerCode)) {
+    			
+    			Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
+    			customer.addNewParcel(newParcel);
+    			
+    		} else if (customer instanceof CustomerAsPerson &&
+    				((CustomerAsPerson) customer).getCustomerCode().equals(costumerCode)) {
+    			
+    			Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
+    			customer.addNewParcel(newParcel);
+    		}
+    	}
+    	
+    }
+    
+    
+    
     
 
     

@@ -61,12 +61,10 @@ public class CustomerAsCompany extends AbstractCustomer {
 	 @Override
 	 public String toString() {
 		 return "Business costumer: " + "\n" +
-				 "-> cID: " + getcID() + "\n" +
-				 "	- Address: " + getAddress() + "\n" +
-	             "	- Phone number: " + getPhoneNo() + '\'' + "\n" +
+				 super.toString() +
 	             "	- Customer code: " + getCustomerCode() + '\'' + "\n" +
-	             " 	- Title: " + title + '\'' + "\n" +
-	             "	- Company registration number: '" + companyRegNo + '\'' + "\n";
+	             " 	- Title: " + title + "\n" +
+	             "	- Company registration number: '" + companyRegNo + "\n";
 	    }
 	 
 	 

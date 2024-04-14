@@ -81,7 +81,9 @@ public class MainService {
         try
         {
         	System.out.println("1 - CREATING NEW DRIVER (SELVAM): ");
+        	
         	createNewDriver("Selvam", "Sethupathi", "112299-88776", "77778", 9);
+        	
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
                 
@@ -96,7 +98,9 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("3 - UPDATING DRIVER (LARA) BY PERSON CODE: ");
+        	
         	updateDriverLicenseNoByPersonCode("123456-12345", "12345");
+        	
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
                 break;
@@ -105,7 +109,9 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("4 - UPDATING DRIVER'S (LARA'S) EXPERIENCE (IN YEARS):");
+        	
         	updateDriverExperienceinYearsByPersonCode("123456-12345", 15);
+        	
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
                 break;
@@ -114,7 +120,9 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("5 - REMOVING DRIVER (LARA) BY PERSON CODE:");
+        	
         	removeDriverByPersonCode("123456-12345");
+        	
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
             }
@@ -123,6 +131,7 @@ public class MainService {
         	
         	System.out.println("6 - RETRIEVING ALL CUSTOMERS AS COMPANY:");
         	ArrayList<CustomerAsCompany> businessCostumers = retrieveAllCostumersAsCompany();
+        	
         	for(CustomerAsCompany tempC: businessCostumers) {
                 System.out.println(tempC);
                 
@@ -131,6 +140,7 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("7 - RETRIEVING ALL CUSTOMERS AS PERSON:");
+        	
         	ArrayList<CustomerAsPerson> allIndividualCustomers = retrieveAllCostumersasPerson();
         	for(CustomerAsPerson tempC: allIndividualCustomers) {
                 System.out.println(tempC);
@@ -139,7 +149,9 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("8 - CREATING NEW CUSTOMER (ANDRIS) AS PERSON:");
+            
             createNewCustomerAsPerson("Andris", "Daksa", "112213-12345", testAddressForIndividualCostumer, "123456789");
+            
             ArrayList<CustomerAsPerson> allIndividualCustomersUpdated = retrieveAllCostumersasPerson();
             for(CustomerAsPerson tempC: allIndividualCustomersUpdated) {
                 System.out.println(tempC);
@@ -148,7 +160,9 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("9 - CREATING NEW CUSTOMER (VeA) AS COMPANY:");
+            
             createNewCustomerAsCompany(testAddressForBusinessCostumer, "371872636", "Ventspils Augstskola", "37162182");
+            
             ArrayList<CustomerAsCompany> businessCostumersUpdated = retrieveAllCostumersAsCompany();
             for(CustomerAsCompany tempC: businessCostumersUpdated) {
                 System.out.println(tempC);
@@ -158,10 +172,12 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("10 - CREATING PARCELS FOR CUSTOMERS (VAIRIS, ESTERE AND COMPANY1: ");
+            
             createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.L, true, driver1, individualCostumer1.getCustomerCode());
             createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.X, true, driver2, individualCostumer1.getCustomerCode());
         	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.M, true, driver3, individualCostumer2.getCustomerCode());
         	createNewParcelForCustomer(LocalDateTime.now(), ParcelSize.XL, false, driver3, businessCostumer1.getCustomerCode());
+        	
         	for(AbstractCustomer tempA: allAbstractCustomer) {
                 System.out.println(tempA.getClass().getName() + "-> " + tempA);
                 
@@ -170,6 +186,7 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("11 - RETRIEVING ALL PARCELS BY CUSTOMER CODE (VAIRIS)");
+        	
         	ArrayList<Parcel> individualCostumer1Parcels =
             		retrieveAllParcelsByCustomerCode(individualCostumer1.getCustomerCode());
             
@@ -180,6 +197,7 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("12 - RETRIEVING ALL PARCELS BY DRIVERS (VIKTORS) PERSON CODE:"); 
+            
             ArrayList<Parcel> parcelsPerDriver = retrieveAllParcelsByDriverPersonCode("000000-00000");
             for(Parcel tempP: parcelsPerDriver) {
                 System.out.println(tempP);
@@ -188,6 +206,7 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("13 - RETRIEVING ALL PARCELS BY CITY (DAUGAVPILS):"); 
+            
             ArrayList<Parcel> daugavpilsParcels = retrieveallParcelsByCity(City.Daugavpils);
             for(Parcel tempP: daugavpilsParcels) {
                 System.out.println(tempP);
@@ -196,6 +215,7 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("14 - RETRIEVING ALL PARCELS BY SIZE (XL):"); 
+           
             ArrayList<Parcel> parcelsBySize = retrieveallParcelsByParcelSize(ParcelSize.XL);
             for(Parcel tempP: parcelsBySize) {
                 System.out.println(tempP);
@@ -209,6 +229,7 @@ public class MainService {
             System.out.println("-------------------------------");
             
             System.out.println("16 - RETRIEVING STATISTICS (VAIRIS) OF A CUSTOMER PARCEL SIZES: ");
+           
             int[] statistics = retrieveStatisticsOfCustomerParcelSize(individualCostumer1.getCustomerCode());
         	System.out.print("[");
         	for (int i = 0; i < statistics.length; i++) {
@@ -228,6 +249,7 @@ public class MainService {
         	System.out.println("-------------------------------");
         	
         	System.out.println("17 - SORTING DRIVERS BY EXPERIENCE: ");
+        	
         	System.out.println("Before sorting: ");
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
@@ -235,11 +257,32 @@ public class MainService {
             }
         	System.out.println();
         	sortDriversByExperience();
+        	
         	System.out.println("After sorting: ");
         	for(Driver tempD: allDrivers) {
                 System.out.println(tempD.getClass().getName() + "-> " + tempD);
                 
             }
+        	
+        	System.out.println("-------------------------------");
+        	
+        	System.out.println("18 - GENERATING RANDOM CUSTOMER AS PERSON AND PARCEL: ");
+        	generateCustomerAsPersonAndParcel();
+        	ArrayList<CustomerAsPerson> allIndividualCustomersWithARandom = retrieveAllCostumersasPerson();
+        	for(CustomerAsPerson tempC: allIndividualCustomersWithARandom) {
+                System.out.println(tempC);
+        	}
+        	
+        	System.out.println("-------------------------------");
+        	
+        	System.out.println("19 - GENERATING RANDOM CUSTOMER AS COMPANY AND PARCEL: ");
+        	generateCustomerAsCompanyAndParcel();
+        	ArrayList<CustomerAsCompany> businessCostumersWithARandom = retrieveAllCostumersAsCompany();
+        	
+        	for(CustomerAsCompany tempC: businessCostumersWithARandom) {
+                System.out.println(tempC);
+                
+            } 
         	
         	System.out.println("-------------------------------");
            
@@ -403,11 +446,12 @@ public class MainService {
             	Parcel newParcel = new Parcel(isFragile, size, plannedDelivery, driver);
     			customer.addNewParcel(newParcel);
     			customerFound = true;
+    	        return; 
             }
         }
     	
     	if (!customerFound) {
-	        throw new Exception("Customer not found");
+	        throw new Exception("Customer with code '" + costumerCode + "' not found.");
 	    }
     	
     }
@@ -625,10 +669,102 @@ public class MainService {
     }
     
     
- 
-    
+    public static void generateCustomerAsPersonAndParcel() {
+       
+    	Random random = new Random();
+        
+    	String[] randomNames = {"Mary", "Laura", "Vivian", "Karina", "Claudio", "Agnes", "Matiss", "Eriks", "Juris"};
+        String[] randomSurnames = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez"};
+        String[] randomStreetTitles = {"Elm Street", "Maple Street", "Oak Street", "Pine Street", "Cedar Street", "Main Street"};
+        String[] randomPhoneNumbers = {"5551234", "5555678", "5559876", "5554321", "5558765", "5552345"};
+        
+        String personCode = String.format("%06d-%05d", random.nextInt(1000000), random.nextInt(100000));
+        
+        String name = randomNames[random.nextInt(randomNames.length)];
+        String surname = randomSurnames[random.nextInt(randomSurnames.length)];
+        String street = randomStreetTitles[random.nextInt(randomStreetTitles.length)];
+        int houseNo = random.nextInt(100) + 1;
+        
+        City[] cities = Arrays.copyOfRange(City.values(), 0, City.values().length - 1);
+        City city = cities[random.nextInt(cities.length)];
+        
+        Address address = new Address(city, street, houseNo);
+        String phoneNo = randomPhoneNumbers[random.nextInt(randomPhoneNumbers.length)];
+
+        CustomerAsPerson randomCustomer = null;
+        try {
+            randomCustomer = new CustomerAsPerson(name, surname, personCode, address, phoneNo);
+        } catch (Exception e) {
+            System.out.println("Failed to create customer: " + e.getMessage());
+            return;
+        }
+
+        allAbstractCustomer.add(randomCustomer);
+
+        LocalDateTime plannedDelivery = LocalDateTime.now().plusDays(random.nextInt(7) + 1);
+
+        ParcelSize[] sizes = Arrays.copyOfRange(ParcelSize.values(), 0, ParcelSize.values().length - 1);
+        ParcelSize parcelSize = sizes[random.nextInt(sizes.length)];
+       
+        boolean isFragile = random.nextBoolean();
+
+        Driver randomDriver = allDrivers.get(random.nextInt(allDrivers.size()));
+
+        try {
+            createNewParcelForCustomer(plannedDelivery, parcelSize, isFragile, randomDriver, randomCustomer.getCustomerCode());
+        } catch (Exception e) {
+            System.out.println("Failed to create parcel for customer: " + e.getMessage());
+            return;
+        }
+    }
 
     
+    public static void generateCustomerAsCompanyAndParcel() {
+        Random random = new Random();
+
+        String[] randomTitles = {"ABC Corporation", "XYZ Industries", "Smith & Co.", "Johnson Ltd.", "Miller Enterprises", "Brown Group"};
+        String[] randomStreetTitles = {"Elm Street", "Maple Street", "Oak Street", "Pine Street", "Cedar Street", "Main Street"};
+        String[] randomPhoneNumbers = {"5551234", "5555678", "5559876", "5554321", "5558765", "5552345"};
+
+        String companyRegNo = String.format("%09d", random.nextInt(1000000000));
+
+        String title = randomTitles[random.nextInt(randomTitles.length)];
+        String street = randomStreetTitles[random.nextInt(randomStreetTitles.length)];
+        int houseNo = random.nextInt(100) + 1;
+        
+        City[] cities = Arrays.copyOfRange(City.values(), 0, City.values().length - 1);
+        City city = cities[random.nextInt(cities.length)];
+
+        Address address = new Address(city, street, houseNo);
+        String phoneNo = randomPhoneNumbers[random.nextInt(randomPhoneNumbers.length)];
+
+        CustomerAsCompany randomCompany = null;
+        try {
+            randomCompany = new CustomerAsCompany(address, phoneNo, title, companyRegNo);
+        } catch (Exception e) {
+            System.out.println("Failed to create company: " + e.getMessage());
+            return;
+        }
+
+        allAbstractCustomer.add(randomCompany);
+
+        LocalDateTime plannedDelivery = LocalDateTime.now().plusDays(random.nextInt(7) + 1);
+
+        ParcelSize[] sizes = Arrays.copyOfRange(ParcelSize.values(), 0, ParcelSize.values().length - 1);
+        ParcelSize parcelSize = sizes[random.nextInt(sizes.length)];
+        
+        boolean isFragile = random.nextBoolean();
+
+        Driver randomDriver = allDrivers.get(random.nextInt(allDrivers.size()));
+
+        try {
+            createNewParcelForCustomer(plannedDelivery, parcelSize, isFragile, randomDriver, randomCompany.getCustomerCode());
+        } catch (Exception e) {
+            System.out.println("Failed to create parcel for customer: " + e.getMessage());
+            return;
+        }
+    }
+
     
     
 }
